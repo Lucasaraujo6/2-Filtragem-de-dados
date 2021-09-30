@@ -1,0 +1,15 @@
+body {
+    font-family: Consolas;
+    padding: 20px;
+}
+
+.text{
+  width: 600px;
+}
+
+.list{
+  padding: 5px;
+  border: 1px solid green;
+  border-radius: 10px;
+  
+}

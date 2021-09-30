@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
+        <link rel="stylesheet" href="./css/styles.css" />
+        <title>Filtragem de dados</title>
+    </head>
+    <body>
+        <h1>Pesquisa de usuários
+
+        </h1>
+        <span>Busca</span>
+        <!-- <input type="text" id = "filter" class="text" > -->
+        <input type="text" id = "filter" onkeyup=render()  class="text" >
+        <div class = "list">
+            <h5><span id = "countFilteredPeople"></span> usuário(s)</h5>
+            <h5>encontrados</h5>
+            <div id = "tabFilteredPeople">teste</div>
+        </div>
+        <script src="./js/script.js"></script>
+    </body>
+</html>
