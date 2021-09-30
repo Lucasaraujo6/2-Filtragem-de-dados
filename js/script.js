@@ -1,6 +1,6 @@
 let allPeople = [];
 let filteredPeople = [];
-
+let pesquisa =1;
 let countFiltered = 0;
 let filter = document.getElementById("filter");
 let numberFormat = null;
@@ -8,7 +8,6 @@ let numberFormat = null;
 window.addEventListener("load", () => {
   tabFilteredPeople = document.getElementById("tabFilteredPeople");
   countFilteredPeople = document.getElementById("#countFilteredPeople");
-  console.log(tabFilteredPeople.innerText)
   numberFormat = Intl.NumberFormat("pt-BR");
 
   fetchFilter();
@@ -33,24 +32,35 @@ async function fetchFilter() {
 function render() {
   renderFilteredPeoples();
   function renderFilteredPeoples() {
-    let filteredPeopleHTML = "<div>";
     doFilter();
-    filteredPeople.forEach(pessoa => {
-      const { sexo, primNome, secNome, login } = pessoa;
-
-      const peopleHTML = `
-        <div class = "text" id = "people"><ul><li>${primNome} ${secNome}</li></ul></div>
+    if (pesquisa!=1){
+      let filteredPeopleHTML = 
+      `<div class = "list">
+        <h5><span id = "countFilteredPeople"></span> usuário(s)</h5>
+        <h5>encontrados ${filteredPeople.length}</h5>
       `
-      filteredPeopleHTML += peopleHTML;
-    });
-    tabFilteredPeople.innerHTML = filteredPeopleHTML;
+      filteredPeople.forEach(pessoa => {
+        const { sexo, primNome, secNome, login } = pessoa;
+
+        const peopleHTML = `
+          <div class = "text" id = "people"><ul><li>${primNome} ${secNome}</li></ul></div>
+        `
+        filteredPeopleHTML += peopleHTML;
+      });
+      tabFilteredPeople.innerHTML = filteredPeopleHTML;
+    }else {
+      tabFilteredPeople.innerHTML = "";
+    }
   }
 }
 function doFilter() { 
-  let pesquisa =filter.value;
+  pesquisa =filter.value;
   if (filter.value==""){pesquisa = 1}
-    filteredPeople = allPeople.filter(item => `${item.primNome} ${item.secNome}`.includes(pesquisa))
-        //console.log(filteredPeople);
+    filteredPeople = allPeople.filter(item => `${item.primNome} ${item.secNome}`.includes(pesquisa));
+    filteredPeople.sort((a,b)=>{
+      return a.primNome.localeCompare(b.primNome);
+    });
+    //    console.log(filteredPeople);
   
   // const filteredPeople = allPeople.filter(person => 
   //   { 
