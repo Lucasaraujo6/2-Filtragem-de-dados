@@ -11,5 +11,5 @@ body {
   padding: 5px;
   border: 1px solid green;
   border-radius: 10px;
-  
+  min-width: 50%;
 }

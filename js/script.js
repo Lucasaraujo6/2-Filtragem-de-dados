@@ -4,7 +4,7 @@ let pesquisa =1;
 let countFiltered = 0;
 let filter = document.getElementById("filter");
 let numberFormat = null;
-
+let qntdhomi,qntdmuie,somaidade, mediaIdade;
 window.addEventListener("load", () => {
   tabFilteredPeople = document.getElementById("tabFilteredPeople");
   countFilteredPeople = document.getElementById("#countFilteredPeople");
@@ -36,24 +36,49 @@ function render() {
     if (pesquisa!=1){
       let filteredPeopleHTML = 
       `<div class = "list">
-        <h5><span id = "countFilteredPeople"></span> usuário(s)</h5>
-        <h5>encontrados ${filteredPeople.length}</h5>
+        <h5><span id = "countFilteredPeople"></span> Usuário(s)</h5>
+        <h5>encontrados: ${filteredPeople.length}</h5>
       `
       filteredPeople.forEach(pessoa => {
-        const { sexo, primNome, secNome, login } = pessoa;
+        const { sexo, primNome, secNome, login, idade } = pessoa;
 
         const peopleHTML = `
-          <div class = "text" id = "people"><ul><li>${primNome} ${secNome}</li></ul></div>
+          <div class = "text" id = "people"><ul><li>${primNome} ${secNome}, ${idade} anos</li></ul></div>
         `
         filteredPeopleHTML += peopleHTML;
-      });
+        if(sexo=="male"){
+          qntdhomi++;
+        }else{
+          qntdmuie++;
+        }
+        somaidade+=idade;
+       
+      });        
+      mediaIdade=somaidade/filteredPeople.length;
+      filteredPeopleHTML+=`</div>
+      <div class = "list">
+      <h5><span id = "stats"></span> Estatísticas:</h5>
+      <div class = "text" id = "quantidade"><ul><li>${filteredPeople.length} pessoas</li></ul></div>
+      <div class = "text" id = "qntdhomi"><ul><li>${qntdhomi} macho</li></ul></div>
+      <div class = "text" id = "qntdmuie"><ul><li>${qntdmuie} fema</li></ul></div>
+      <div class = "text" id = "veisse"><ul><li>${somaidade} veísse</li></ul></div>
+      <div class = "text" id = "veisse"><ul><li>${mediaIdade} medisse</li></ul></div>
+
+      `
       tabFilteredPeople.innerHTML = filteredPeopleHTML;
+
+
+
     }else {
       tabFilteredPeople.innerHTML = "";
     }
   }
 }
 function doFilter() { 
+  somaidade=0;
+  mediaIdade=0;
+  qntdhomi=0;
+  qntdmuie=0;
   pesquisa =filter.value;
   if (filter.value==""){pesquisa = 1}
     filteredPeople = allPeople.filter(item => `${item.primNome} ${item.secNome}`.includes(pesquisa));
